@@ -1,10 +1,19 @@
 import React from "react";
 import BlogPost from "./BlogPost";
 
-function BlogPostContainer() {
+function BlogPostContainer({blogPosts}) {
   return (
     <div className="blog-container">
-      {/* {RENDER THE BLOGPOST CARDS HERE} */}
+      {blogPosts.map((post)=> (
+      <BlogPost
+      key={post.id}
+      author={post.author}
+      title={post.title} 
+      article={post.article}
+      isRead={post.isRead}
+      id={post.id}
+    />
+      ))}
     </div>
   );
 }

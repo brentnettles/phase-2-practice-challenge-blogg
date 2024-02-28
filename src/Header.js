@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Header() {
+function Header({ blogPosts, setFilteredBlogPosts }) {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    const filteredPosts = blogPosts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(query.toLowerCase()) ||
+        post.author.toLowerCase().includes(query.toLowerCase()) ||
+        post.article.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredBlogPosts(filteredPosts);
+  };
+
   return (
     <div>
       <header className="logo">
         <h1>the bLOGg</h1>
-
         {/* This is the search box */}
         <input
           style={{
@@ -19,6 +32,8 @@ function Header() {
           }}
           placeholder="Search an article or the author"
           type="text"
+          value={searchQuery}
+          onChange={handleSearch}
         ></input>
       </header>
     </div>
